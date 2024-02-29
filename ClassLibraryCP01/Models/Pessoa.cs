@@ -12,6 +12,7 @@ namespace ClassLibraryCP01.Models
         public string Nome;
         public int Idade;
 
+        // Construtor especializado
         public Pessoa(int id, string nome, int idade)
         {
             Id = id;
@@ -19,18 +20,25 @@ namespace ClassLibraryCP01.Models
             Idade = idade;
         }
 
+        // Construtor convencional ou padrão
         public Pessoa()
         {
         }
 
-        private void fazerAniversario ()
+        // Método privado para formatar o nome e deixar somente a primeira letra maíuscula
+        private string FormatarNome(string nome)
         {
-            Idade = Idade + 1;
+            if (string.IsNullOrWhiteSpace(nome))
+            {
+                return nome;
+            }
+            return char.ToUpper(nome[0]) + nome.Substring(1).ToLower();
         }
 
-        internal virtual string InfosPessoa()
+        // Método protected que retorna as informações da pessoa e permite ser sobrescrito
+        protected virtual string InfosPessoa()
         {
-            return $"{Nome}, {Idade}";
+            return $"{Id}, {Nome}, {Idade}";
         }
     }
 }

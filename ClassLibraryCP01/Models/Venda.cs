@@ -13,6 +13,8 @@ namespace ClassLibraryCP01.Models
         public Vendedor Vendedor;
         public double Total;
 
+
+        // Construtor especializado
         public Venda(int id, List<Livro> livro, Vendedor vendedor, double total)
         {
             Id = id;
@@ -21,13 +23,39 @@ namespace ClassLibraryCP01.Models
             Total = total;
         }
 
+        // Construtor que utiliza o this para chamar o construtor especializado
+        public Venda(int id, List<Livro> livros, Vendedor vendedor) : this(id, livros, vendedor, CalcularTotalLivros(livros))
+        {
+        }
+
+
+        // Construtor convencional ou padrão
         public Venda()
         {
         }
 
-        protected void visualizarVenda()
+        // Método internal que retorna no console o recibo da venda
+        internal void GerarRecibo()
         {
-            Console.WriteLine($"{Id}, {Livros.ToString()}, {Vendedor.ToString}, {Total}");
+            Console.WriteLine($"Venda ID: {Id}");
+            Console.WriteLine($"Vendedor: {Vendedor.Nome}");
+            Console.WriteLine("Livros:");
+            foreach (var livro in Livros)
+            {
+                Console.WriteLine($"- {livro.Titulo}: {livro.Preco}");
+            }
+            Console.WriteLine($"Total: {Total}");
+        }
+
+        // Método privado para calcular o total dos livros
+        private static double CalcularTotalLivros(List<Livro> livros)
+        {
+            double total = 0;
+            foreach (var livro in livros)
+            {
+                total += livro.Preco;
+            }
+            return total;
         }
     }
 }

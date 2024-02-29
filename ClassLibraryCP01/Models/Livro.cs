@@ -14,6 +14,7 @@ namespace ClassLibraryCP01.Models
         public Categoria Categoria;
         public double Preco;
 
+        // Construtor especializado
         public Livro(int id, string titulo, Autor autor, Categoria categoria, double preco)
         {
             Id = id;
@@ -23,6 +24,7 @@ namespace ClassLibraryCP01.Models
             Preco = preco;
         }
 
+        // Construtor convencional ou padrão
         public Livro()
         {
         }

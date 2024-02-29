@@ -10,14 +10,17 @@ namespace ClassLibraryCP01.Models
     {
         public string Email;
 
+
+        // Construtor que chama construtor da classe pai
         public Vendedor(int id,string nome, int idade, string email) : base(id, nome, idade)
         {
             Email = email;
         }
 
-        internal override string InfosPessoa()
+        // Método protected que sobrescreve o método pai, colocando o email no retorno
+        protected override string InfosPessoa()
         {
-            return $"{Nome}, {Idade}, {Email}";
+            return $"{Id}, {Nome}, {Idade}, {Email}";
         }
     }
 }

@@ -10,14 +10,16 @@ namespace ClassLibraryCP01.Models
     {
         public string Nacionalidade;
 
+        // Construtor que chama construtor da classe pai
         public Autor(int id, string nome, int idade, string nacionalidade) : base(id, nome, idade)
         {
             Nacionalidade = nacionalidade;
         }
-       
-        internal override string InfosPessoa()
+
+        // Método protected que sobrescreve o método pai, colocando a nacionalidade no retorno
+        protected override string InfosPessoa()
         {
-            return $"{Nome}, {Idade}, {Nacionalidade}";
+            return $"{Id}, {Nome}, {Idade}, {Nacionalidade}";
         }
     }
 }
