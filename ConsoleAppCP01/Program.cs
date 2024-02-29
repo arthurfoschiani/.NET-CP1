@@ -1,7 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using ClassLibraryCP01.Models;
-
-Console.WriteLine("Hello, World!");
+﻿using ClassLibraryCP01.Models;
 
 var autores = new List<Autor>();
 var categorias = new List<Categoria>();
@@ -10,8 +7,8 @@ var vendedores = new List<Vendedor>();
 var vendas = new List<Venda>();
 
 
-Autor arthur = new Autor(1, "Arthur", 20, "Biografia 1");
-Autor alicia = new Autor(2, "Alícia", 23, "Biografia 2");
+Autor arthur = new Autor(1, "Arthur", 20, "Brasileiro");
+Autor alicia = new Autor(2, "Alícia", 23, "Brasileiro");
 autores.Add(arthur);
 autores.Add(alicia);
 
@@ -25,8 +22,8 @@ Livro romeuEJulieta = new Livro(2, "Romeu e Julieta", alicia, romance, 150.0);
 livros.Add(harryPotter);
 livros.Add(romeuEJulieta);
 
-Vendedor anaCarolina = new Vendedor(1, "Ana Carolina", 26, "vendedor1@email.com");
-Vendedor larah = new Vendedor(2, "Larah", 27, "vendedor2@email.com");
+Vendedor anaCarolina = new Vendedor(1, "Ana Carolina", 26, "ana.carol@gmail.com");
+Vendedor larah = new Vendedor(2, "Larah", 27, "larah@gmail.com");
 vendedores.Add(anaCarolina);
 vendedores.Add(larah);
 
@@ -126,26 +123,44 @@ static void AdicionarLivro(List<Livro> livros, List<Autor> autores, List<Categor
     Console.WriteLine("ID do autor:");
     int autorId = Convert.ToInt32(Console.ReadLine());
     Autor autor = autores.Find(a => a.Id == autorId);
+    if (autor == null)
+    {
+        Console.WriteLine("Autor não encontrado.");
+        return;
+    }
 
     ListarCategorias(categorias);
 
     Console.WriteLine("ID da categoria:");
     int categoriaId = Convert.ToInt32(Console.ReadLine());
     Categoria categoria = categorias.Find(c => c.Id == categoriaId);
+    if (categoria == null)
+    {
+        Console.WriteLine("Categoria não encontrada.");
+        return;
+    }
 
     Console.WriteLine("Preço do livro:");
     double preco = Convert.ToDouble(Console.ReadLine());
 
     Livro livro = new Livro(livros.Count + 1, titulo, autor, categoria, preco);
     livros.Add(livro);
-    Console.WriteLine("Livro adicionado com sucesso!");
+    Console.WriteLine($"Livro '{titulo}' adicionado com sucesso!");
 }
 
 static void ListarLivros(List<Livro> livros)
 {
-    foreach (var livro in livros)
+    if (livros.Count == 0)
     {
-        Console.WriteLine($"ID: {livro.Id}, Título: {livro.Titulo}, Autor: {livro.Autor.Nome}, Categoria: {livro.Categoria.Titulo}, Preço: {livro.Preco}");
+        Console.WriteLine("Não há livros registrados.");
+        return;
+    }
+    else
+    {
+        foreach (var livro in livros)
+        {
+            Console.WriteLine($"ID: {livro.Id}, Título: {livro.Titulo}, Autor: {livro.Autor.Nome}, Categoria: {livro.Categoria.Titulo}, Preço: {livro.Preco}");
+        }
     }
 }
 
@@ -162,14 +177,22 @@ static void AdicionarAutor(List<Autor> autores)
 
     Autor autor = new Autor(autores.Count + 1, nome, idade, nacionalidade);
     autores.Add(autor);
-    Console.WriteLine("Autor adicionado com sucesso!");
+    Console.WriteLine($"Autor '{nome}' adicionado com sucesso!");
 }
 
 static void ListarAutores(List<Autor> autores)
 {
-    foreach (var autor in autores)
+    if (autores.Count == 0)
     {
-        Console.WriteLine($"ID: {autor.Id}, Nome: {autor.Nome}, Idade: {autor.Idade}, Nacionalidade: {autor.Nacionalidade}");
+        Console.WriteLine("Não há autores registrados.");
+        return;
+    }
+    else
+    {
+        foreach (var autor in autores)
+        {
+            Console.WriteLine($"ID: {autor.Id}, Nome: {autor.Nome}, Idade: {autor.Idade}, Nacionalidade: {autor.Nacionalidade}");
+        }
     }
 }
 
@@ -180,14 +203,22 @@ static void AdicionarCategoria(List<Categoria> categorias)
 
     Categoria categoria = new Categoria(categorias.Count + 1, nome);
     categorias.Add(categoria);
-    Console.WriteLine("Categoria adicionada com sucesso!");
+    Console.WriteLine($"Categoria '{nome}' adicionada com sucesso!");
 }
 
 static void ListarCategorias(List<Categoria> categorias)
 {
-    foreach (var categoria in categorias)
+    if (categorias.Count == 0)
     {
-        Console.WriteLine($"ID: {categoria.Id}, Nome: {categoria.Titulo}");
+        Console.WriteLine("Não há categorias registradas.");
+        return;
+    }
+    else
+    {
+        foreach (var categoria in categorias)
+        {
+            Console.WriteLine($"ID: {categoria.Id}, Nome: {categoria.Titulo}");
+        }
     }
 }
 
@@ -204,14 +235,22 @@ static void AdicionarVendedor(List<Vendedor> vendedores)
 
     Vendedor vendedor = new Vendedor(vendedores.Count + 1, nome, idade, email);
     vendedores.Add(vendedor);
-    Console.WriteLine("Vendedor adicionado com sucesso!");
+    Console.WriteLine($"Vendedor '{nome}' adicionado com sucesso!");
 }
 
 static void ListarVendedores(List<Vendedor> vendedores)
 {
-    foreach (var vendedor in vendedores)
+    if (vendedores.Count == 0)
     {
-        Console.WriteLine($"ID: {vendedor.Id}, Nome: {vendedor.Nome}, Idade: {vendedor.Idade}, Email: {vendedor.Email}");
+        Console.WriteLine("Não há vendedores registrados.");
+        return;
+    }
+    else
+    {
+        foreach (var vendedor in vendedores)
+        {
+            Console.WriteLine($"ID: {vendedor.Id}, Nome: {vendedor.Nome}, Idade: {vendedor.Idade}, Email: {vendedor.Email}");
+        }
     }
 }
 
@@ -222,21 +261,13 @@ static void RegistrarVenda(List<Venda> vendas, List<Vendedor> vendedores, List<L
     Console.WriteLine("ID do vendedor:");
     int vendedorId = Convert.ToInt32(Console.ReadLine());
     Vendedor vendedor = vendedores.Find(v => v.Id == vendedorId);
-
-    List<Livro> livrosVendidos = new List<Livro>();
-    bool adicionarMaisLivros;
-    do
+    if (vendedor == null)
     {
-        ListarLivros(livros);
+        Console.WriteLine("Vendedor não encontrado.");
+        return;
+    }
 
-        Console.WriteLine("ID do livro:");
-        int livroId = Convert.ToInt32(Console.ReadLine());
-        Livro livro = livros.Find(l => l.Id == livroId);
-        livrosVendidos.Add(livro);
-
-        Console.WriteLine("Deseja adicionar mais livros à venda? (S/N)");
-        adicionarMaisLivros = Console.ReadLine().ToUpper() == "S";
-    } while (adicionarMaisLivros);
+    List<Livro> livrosVendidos = AdicionarLivrosAVenda(livros);
 
     double total = CalcularTotalVenda(livrosVendidos);
 
@@ -245,24 +276,47 @@ static void RegistrarVenda(List<Venda> vendas, List<Vendedor> vendedores, List<L
     Console.WriteLine("Venda registrada com sucesso!");
 }
 
+static List<Livro> AdicionarLivrosAVenda(List<Livro> livros)
+{
+    List<Livro> livrosVendidos = new List<Livro>();
+    bool adicionarMaisLivros = true;
+    do
+    {
+        ListarLivros(livros);
+
+        Console.WriteLine("ID do livro:");
+        int livroId = Convert.ToInt32(Console.ReadLine());
+        Livro livro = livros.Find(l => l.Id == livroId);
+        if (livro == null)
+        {
+            Console.WriteLine("Livro não encontrado.");
+            continue;
+        }
+        livrosVendidos.Add(livro);
+
+        Console.WriteLine("Deseja adicionar mais livros à venda? (S/N)");
+        adicionarMaisLivros = Console.ReadLine().ToUpper() == "S";
+    } while (adicionarMaisLivros);
+
+    return livrosVendidos;
+}
+
 static void ListarVendas(List<Venda> vendas)
 {
     if (vendas.Count == 0)
     {
         Console.WriteLine("Não há vendas registradas.");
     }
-    else
+
+    foreach (var venda in vendas)
     {
-        foreach (var venda in vendas)
+        Console.WriteLine($"ID: {venda.Id}, Vendedor: {venda.Vendedor.Nome}, Total: {venda.Total}");
+        Console.WriteLine("Livros vendidos:");
+        foreach (var livro in venda.Livros)
         {
-            Console.WriteLine($"ID: {venda.Id}, Vendedor: {venda.Vendedor.Nome}, Total: {venda.Total}");
-            Console.WriteLine("Livros vendidos:");
-            foreach (var livro in venda.Livros)
-            {
-                Console.WriteLine($"- Título: {livro.Titulo}, Autor: {livro.Autor.Nome}, Categoria: {livro.Categoria.Titulo}, Preço: {livro.Preco}");
-            }
-            Console.WriteLine();
+            Console.WriteLine($"- Título: {livro.Titulo}, Autor: {livro.Autor.Nome}, Categoria: {livro.Categoria.Titulo}, Preço: {livro.Preco}");
         }
+        Console.WriteLine();
     }
 }
 
@@ -271,17 +325,17 @@ static void ListarLivrosComPrecoAcimaDe(List<Livro> livros)
     Console.WriteLine("Preço mínimo:");
     double valorMinimo = Convert.ToDouble(Console.ReadLine());
 
-    bool encontrouLivro = false;
+    bool encontrouLivros = false;
     foreach (var livro in livros)
     {
         if (livro.Preco > valorMinimo)
         {
             Console.WriteLine($"ID: {livro.Id}, Título: {livro.Titulo}, Autor: {livro.Autor.Nome}, Categoria: {livro.Categoria.Titulo}, Preço: {livro.Preco}");
-            encontrouLivro = true;
+            encontrouLivros = true;
         }
     }
 
-    if (!encontrouLivro)
+    if (!encontrouLivros)
     {
         Console.WriteLine("Nenhum livro encontrado com preço acima do valor especificado.");
     }
@@ -344,7 +398,7 @@ static void ListarVendasPorVendedor(List<Venda> vendas, List<Vendedor> vendedore
             {
                 Console.WriteLine($"- Título: {livro.Titulo}, Autor: {livro.Autor.Nome}, Categoria: {livro.Categoria.Titulo}, Preço: {livro.Preco}");
             }
-            Console.WriteLine(); // Linha em branco para separar as vendas
+            Console.WriteLine();
             encontrouVendas = true;
         }
     }
