@@ -9,14 +9,14 @@ namespace ClassLibraryCP01.Models
     public class Venda
     {
         public int Id;
-        public Livro[] Livro;
+        public List<Livro> Livros;
         public Vendedor Vendedor;
         public double Total;
 
-        public Venda(int id, Livro[] livro, Vendedor vendedor, double total)
+        public Venda(int id, List<Livro> livro, Vendedor vendedor, double total)
         {
             Id = id;
-            Livro = livro;
+            Livros= livro;
             Vendedor = vendedor;
             Total = total;
         }
@@ -25,19 +25,9 @@ namespace ClassLibraryCP01.Models
         {
         }
 
-        public double calcularTotal()
-        {
-            double total = 0;
-            foreach (var item in Livro)
-            {
-                total += item.Preco;
-            }
-            return total;
-        }
-
         protected void visualizarVenda()
         {
-            Console.WriteLine($"{Id}, {Livro.ToString()}, {Vendedor.ToString}, {Total}");
+            Console.WriteLine($"{Id}, {Livros.ToString()}, {Vendedor.ToString}, {Total}");
         }
     }
 }

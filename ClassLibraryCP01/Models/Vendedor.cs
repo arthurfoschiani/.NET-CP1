@@ -8,16 +8,16 @@ namespace ClassLibraryCP01.Models
 {
     public class Vendedor : Pessoa
     {
-        public double Comissao;
+        public string Email;
 
-        public Vendedor(int id,string nome, int idade, double comissao) : base(id, nome, idade)
+        public Vendedor(int id,string nome, int idade, string email) : base(id, nome, idade)
         {
-            Comissao = comissao;
+            Email = email;
         }
 
         internal override string InfosPessoa()
         {
-            return $"{Nome}, {Idade}, {Comissao}";
+            return $"{Nome}, {Idade}, {Email}";
         }
     }
 }
