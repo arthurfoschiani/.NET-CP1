@@ -316,11 +316,8 @@ static void RegistrarVenda(List<Venda> vendas, List<Vendedor> vendedores, List<L
     // Adiciona livros à venda
     List<Livro> livrosVendidos = AdicionarLivrosAVenda(livros);
 
-    // Calcula o total da venda
-    double total = CalcularTotalVenda(livrosVendidos);
-
     // Cria e registra a venda
-    Venda venda = new Venda(vendas.Count + 1, livrosVendidos, vendedor, total);
+    Venda venda = new Venda(vendas.Count + 1, livrosVendidos, vendedor);
     vendas.Add(venda);
     Console.WriteLine("Venda registrada com sucesso!");
 }
@@ -473,16 +470,4 @@ static void ListarVendasPorVendedor(List<Venda> vendas, List<Vendedor> vendedore
     {
         Console.WriteLine("Nenhuma venda encontrada para este vendedor.");
     }
-}
-
-// Função que retorna o preço total de todos os livros escolhidos pelo usuário
-static double CalcularTotalVenda(List<Livro> livros)
-{
-    // Calcula o total da venda somando os preços dos livros
-    double total = 0;
-    foreach (var item in livros)
-    {
-        total += item.Preco;
-    }
-    return total;
 }

@@ -47,7 +47,7 @@ namespace ClassLibraryCP01.Models
             Console.WriteLine($"Total: {Total}");
         }
 
-        // Método privado para calcular o total dos livros
+        // Método privado para calcular o preço total dos livros da venda
         private static double CalcularTotalLivros(List<Livro> livros)
         {
             double total = 0;
