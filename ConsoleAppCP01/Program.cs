@@ -125,7 +125,7 @@ while (continuar)
             break;
         case 13:
             // Lista vendas por vendedor
-            Console.WriteLine("Vc escolheu: Listar livros por categoria");
+            Console.WriteLine("Vc escolheu: Listar vendas feitas por um vendedor");
             ListarVendasPorVendedor(vendas, vendedores);
             break;
         case 14:
